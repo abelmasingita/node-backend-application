@@ -3,6 +3,7 @@ import products from './Data/products.js'
 import { User } from './models/userModel.js'
 import { Product } from './models/productModel.js'
 
+
 export const importData = async () => {
   try {
     await User.deleteMany()
