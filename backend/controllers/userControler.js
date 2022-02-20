@@ -8,7 +8,7 @@ const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
-
+  
   if (user) {
     //NOT DONE YET, MUST MATCH PASSWORD
     res.json({
@@ -17,7 +17,7 @@ const userLogin = asyncHandler(async (req, res) => {
       name: user.name,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      password: 'Password not verified',
+      password: 'Not Yet Verified',
     })
   } else {
     res.status(401)
