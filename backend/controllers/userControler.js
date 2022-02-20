@@ -40,6 +40,7 @@ const getUserById = asyncHandler(async (req, res) => {
     res.status(200).json(user)
   }
 })
+//
 
 const createUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
