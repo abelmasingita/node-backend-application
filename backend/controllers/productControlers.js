@@ -40,22 +40,21 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    const updatedproduct = await Product.updateOne({
-      name: name,
-      description: description,
-      price: price,
-      category: category,
-      brand: brand,
-      image: image,
-      rating: rating,
-      numReviews: numReviews,
-      countInStock: countInStock,
-    })
+    product.name = name
+    product.price = price
+    product.description = description
+    product.image = image
+    product.brand = brand
+    product.rating = rating
+    product.numReviews = numReviews
+    product.category = category
+    product.countInStock = countInStock
 
-    res.json(product)
+    const updatedProduct = await product.save()
+    res.json(updatedProduct)
   } else {
     res.status(404)
-    throw new Error('Product not found!')
+    throw new Error('Product not found')
   }
 })
 const createProduct = asyncHandler(async (req, res) => {
