@@ -73,6 +73,7 @@ const createProduct = asyncHandler(async (req, res) => {
     })
 
     if (product) {
+      res.status(201)
       res.json(product)
     } else {
       throw new Error('product not created!')

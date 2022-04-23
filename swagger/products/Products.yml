@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Products
+  description: Products from masingita-eshop database
+  version: 0.1.9
+servers:
+  - url: http://nodejs-eccormerce-backend.herokuapp.com/api/products
+    description: Products from masingita-eshop database
+  
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /:
+    get:
+      summary: Returns a list of products.
+      description: get all Products
+      responses:
+        '200':    # status code
+          description: A JSON array of products
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                category:
+                  type: string
+                brand:
+                  type: string
+                image:
+                  type: string
+      summary: create a product.
+      description: create Product
+      responses:
+        '201':    # status code
+          description: A JSON object of a product
+          content:
+            application/json:
+              schema: 
+                type: object
+                items: 
+                  type: string
+
+  /{productId}:
+    get:
+      summary: Returns a single product by ID.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The ID of the product to return.
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        '200':
+          description: single product.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: string
+                    example: asbhfkdf
+        '404':
+          description: A product with the specified ID was not found.
+        default:
+          description: Unexpected error
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Delete a single product.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The ID of the product to delete.
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        '200':
+          description: single product.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: string
+                    example: asbhfkdf
+        '404':
+          description: A product with the specified ID was not found.
+        '401':
+          description: Not Authorized.
+        default:
+          description: Unexpected error
+    put:
+      security:
+        - bearerAuth: []
+      summary: Returns a single product by ID.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The ID of the product to return.
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        '200':
+          description: single product.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: int64
+                    example: asbhfkdf
+        '404':
+          description: A product with the specified ID was not found.
+        '401':
+          description: Not Authorized.
+        default:
+          description: Unexpected error
