@@ -8,16 +8,14 @@ const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
-  
-  if (user) {
-    //NOT DONE YET, MUST MATCH PASSWORD
+
+  if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      password: 'Not Yet Verified',
     })
   } else {
     res.status(401)
@@ -96,7 +94,7 @@ const createUser = asyncHandler(async (req, res) => {
     const user = {
       name: name,
       email: email,
-      password: bcrypt.hashSync(password, 10),
+      password: password,
     }
 
     const createdUser = await User.create(user)

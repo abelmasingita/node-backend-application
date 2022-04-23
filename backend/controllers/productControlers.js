@@ -7,6 +7,9 @@ const getProducts = asyncHandler(async (req, res) => {
 
   if (products) {
     res.status(200).json(products)
+  } else {
+    res.status(404)
+    throw new Error('Products not found!')
   }
 })
 
@@ -15,6 +18,9 @@ const getProductById = asyncHandler(async (req, res) => {
 
   if (product) {
     res.status(200).json(product)
+  } else {
+    res.status(404)
+    throw new Error('Product not found!')
   }
 })
 
@@ -46,7 +52,7 @@ const updateProduct = asyncHandler(async (req, res) => {
       countInStock: countInStock,
     })
 
-    res.json('Updated')
+    res.json(product)
   } else {
     res.status(404)
     throw new Error('Product not found!')

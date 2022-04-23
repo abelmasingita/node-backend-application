@@ -20,12 +20,13 @@ const port = process.env.PORT || 5000
 
 //routes
 app.get('/', (req, res) => {
-  res.send('Backen Running!')
+  res.send('Backend Running!')
 })
 
+//Middleware
 app.use('/api/products',productRoutes)
 app.use('/api/users',userRoutes)
-//Middleware
+
 
 //Listener
 app.listen(port, () => {
